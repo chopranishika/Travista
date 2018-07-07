@@ -1,0 +1,39 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+
+
+[packages]
+
+bcrypt = "==3.1.4"
+certifi = "==2018.1.18"
+cffi = "==1.10.0"
+chardet = "==3.0.4"
+dj-database-url = "==0.5.0"
+django = "==1.11.5"
+django-crispy-forms = "==1.7.0"
+django-extensions = "==1.7.8"
+gunicorn = "==19.7.1"
+idna = "==2.6"
+pbr = "==1.10.0"
+pillow = "==5.0.0"
+"psycopg2" = "==2.7.4"
+py = "==1.4.33"
+pycparser = "==2.17"
+pytz = "==2017.2"
+requests = "==2.18.4"
+stevedore = "==1.20.0"
+unipath = "==1.1"
+"urllib3" = "==1.22"
+whitenoise = "*"
+
+
+[requires]
+
+python_version = "3.6"

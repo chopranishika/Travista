@@ -1,0 +1,198 @@
+<html>
+<body>
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+<div class="fh5co-hero">
+			<div class="fh5co-overlay"></div>
+			<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url({% static 'flight/img/cover_bg_3.jpg' %});">
+				<div class="desc">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-5 col-md-5">
+								<!-- <a href="index.html" id="main-logo">Travel</a> -->
+								<div class="tabulation animate-box">
+
+								  <!-- Nav tabs -->
+								   <ul class="nav nav-tabs" role="tablist">
+								      <li role="presentation" class="active">
+								      	<a href="#flights" aria-controls="flights" role="tab" data-toggle="tab">Flights</a>
+								      </li>
+								      
+								   </ul>
+
+								   <!-- Tab panes -->
+									<div class="tab-content">
+									 <div role="tabpanel" class="tab-pane active" id="flights">
+									<form id="newform" action="" method="post">
+										{% csrf_token %}	
+										<div class="row">
+											<div class="col-xxs-12 col-xs-6 mt">
+												<div class="input-field">
+													<label for="from">From:</label>
+													
+													<select class="form-control"  name="ori" id="ori" data-style="btn-primary" ">
+															 <option value="IDR">IDR</option>
+															 <option value="BOM">BOM</option>
+															 <option value="DEL">DEL</option>
+														 </select>
+													<!---input type="text" class="form-control" name="ori" id="ori" placeholder=""/------->
+												</div>
+											</div>
+											<div class="col-xxs-12 col-xs-6 mt">
+												<div class="input-field">
+													<label for="from">To:</label>
+													<select class="form-control" name="des" id="des" data-style="btn-primary" ">
+															 <option value="IDR">IDR</option>
+															 <option value="BOM">BOM</option>
+															 <option value="DEL">DEL</option>
+														 </select>
+													<!--------input type="text" class="form-control" name="des" id="des" placeholder=""/---->
+												</div>
+											</div>
+											<div class="col-xxs-12 col-xs-6 mt alternate">
+												<div class="input-field">
+													<label for="date-start">Date:</label>
+													<input  class="form-control" type="text" placeholder="Date"  id="date">
+													<!------input type="text" class="form-control" name="date" id="date" placeholder="yyyy-mm-dd"/---------->
+												</div>
+											</div>
+											<div class="col-xxs-12 col-xs-6 mt alternate">
+												<div class="input-field">
+													<label for="date-start">Adults:</label>
+													<input type="text" class="form-control" name="count" id="count" />
+												</div>
+											</div>
+											
+											<div class="col-xs-12">
+												<input type="submit" class="btn btn-primary btn-block" value="Search Flight">
+											</div>
+										</div>
+									</form>
+									 </div>
+
+									</div>
+
+								</div>
+							</div>
+							<div class="desc2 animate-box">
+								<div class="col-sm-7 col-sm-push-1 col-md-7 col-md-push-1">
+									
+									<h2>Exclusive Limited Time Offer</h2>
+									<h3>Fly to Goa via Mumbai</h3>
+									<span class="price">Rs4999</span>
+									<!-- <p><a class="btn btn-primary btn-lg" href="#">Get Started</a></p> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+
+<DIV id="show"></DIV>
+  <!----ul class="day-list clearfix fss-tap-anywhere tap-b fss-ticket-style animate-plane">
+  <li class="day-list-item clearfix ">
+  
+<article data-cid="model_4886" data-deeplink="details" class="card result clearfix no-details   " ontouchstart="">
+   <div class="col-md-2">
+   </div>
+   
+   <!-------div class="col-md-4 space">
+      <div class="card-body clearfix">
+         <div class="clearfix carrier"></div>
+         <section data-id="0" class="card-main leg clearfix dept">
+            <div>
+			  
+               <div class="leg-details">
+                  <div class="depart"><span class="station-tooltip" data-id="12423"><span class="times">20:45</span><span class="stop-station" data-id="12423">IDR</span></span></div>
+                  <div class="stops">
+                     <span class="duration">1h 25</span>
+                     <ul class="stop-line">
+                        <li class="stop-line"></li>
+                     </ul>
+                     <div class="leg-stops no-stops"><span class="leg-stops-green leg-stops-label">Direct </span><span class="leg-stops-station"></span></div>
+                  </div>
+                  <div class="arrive"><span class="station-tooltip" data-id="10957"><span class="times">22:10</span><span class="stop-station" data-id="10957">DEL</span></span></div>
+                  <div class="clearfix"></div>
+               </div>
+        
+        </div>
+		 </section>
+      </div>
+   </div>
+
+</article>
+</li></ul----------->
+  
+
+
+ <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+   <script src="js/jquery-1.9.1.min.js"></script>
+        <script src="js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                
+                $('#date').datepicker({
+                    format: "yyyy-mm-dd"
+                });  
+            
+            });
+        </script>
+ 
+ <script>
+	$(document).on('submit','#newform',function(e){
+	
+		e.preventDefault();
+		
+		$.ajax({
+		
+			type:'POST',
+			url:'/flight/detail/',
+			data:{
+				
+				ori:$('#ori').val(),
+				des:$('#des').val(),
+				date:$('#date').val(),
+				count:$('#count').val(),
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+			success:function(response){
+				
+				var data=JSON.parse(response);
+				var len = data.length;
+				console.log(len);
+                var txt = "";
+                if(len > 0){
+				txt = '<table>';
+                    for(var i=0;i<len;i++){
+						console.log(data[i]['price']);
+                        if(data[i].price){
+				txt += ' <ul class="day-list clearfix fss-tap-anywhere tap-b fss-ticket-style animate-plane"><li class="day-list-item clearfix "><article data-cid="model_4886" data-deeplink="details" class="card result clearfix no-details   " ontouchstart=""><div class="col-md-2"></div><div class="col-md-4 space"><div class="card-body clearfix"><div class="clearfix carrier"></div><section data-id="0" class="card-main leg clearfix dept"><div><div class="leg-details"><div class="depart"><span class="station-tooltip" data-id="12423"><span class="times">'+data[i].dep_time+'</span><span class="stop-station" data-id="12423">'+data[i].forigin+'</span></span></div><div class="stops"><span class="duration">'+data[i].duration+'MIN</span><ul class="stop-line"><li class="stop-line"></li></ul><div class="leg-stops no-stops"><span class="leg-stops-green leg-stops-label">Direct </span><span class="leg-stops-station"></span></div></div><div class="arrive"><span class="station-tooltip" data-id="10957"><span class="times">'+data[i].ari_time+'</span><span class="stop-station" data-id="10957">'+data[i].fdestination+'</span></span></div><div class="clearfix"></div></div></section></div></div></div><div class="col-lg-4 space"><div class="mainquote-cba clearfix"><div class="mainquote-wrapper-cba"><div class="mq-container-wrapper"><div class="mq-container"><div class="cba-price"><span class="mainquote-deals">8 deals from</span><div class="mainquote-group-price"><a href="#" data-deeplink="details" target="_blank" class="mainquote-price expand-cba select-action"><span class="" aria-hidden="true"></span>'+data[i].price+'</a></div></div></div></div></div></div></div></article></li></ul>';
+                         // txt += "<tr><td>"+data[i].dep_time+"</td><td>"+data[i].ari_time+"</td><td>"+data[i].flight_no+"</td><td>"+data[i].price+"</td><td>"+data[i].forigin+"</td><td>"+data[i].airline+"</td><td>"+data[i].fdestination+"</td></tr>";
+                        }
+                    }
+					txt += '</table>';
+                    if(txt != ""){
+                        $("#table").append(txt).removeClass("hidden");
+						$('#show').html(txt);
+                    }
+                }  
+				
+			}
+	
+	
+	});
+ });
+ 
+ 
+ </script>  
+  
+     
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<form id="newform" action="" method="post">
+{% csrf_token %}
+  origin: <input type="text" name="ori" id="ori" /></br>
+  destination: <input type="text" name="des" id="des" maxlength=25 /></br>
+  date: <input type="text" name="date" id="date" /></br>
+  adultcount : <input type="number" name="count" id="count" /></br>
+  </br>
+  <input type="submit" value="Send" />
+</form>`
+<DIV id="show"></DIV>
+
+ <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+ 
+ <script>
+	$(document).on('submit','#newform',function(e){
+	
+		e.preventDefault();
+		
+		$.ajax({
+		
+			type:'POST',
+			url:'/flight/detail/',
+			data:{
+				
+				ori:$('#ori').val(),
+				des:$('#des').val(),
+				date:$('#date').val(),
+				count:$('#count').val(),
+				csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+			},
+			success:function(response){
+				
+				var data=JSON.parse(response);
+				var len = data.length;
+				console.log(len);
+                var txt = "";
+                if(len > 0){
+				txt = '<table>';
+                    for(var i=0;i<len;i++){
+						console.log(data[i]['price']);
+                        if(data[i].price){
+							
+                          txt += "<tr><td>"+data[i].dep_time+"</td><td>"+data[i].ari_time+"</td><td>"+data[i].flight_no+"</td><td>"+data[i].price+"</td><td>"+data[i].forigin+"</td><td>"+data[i].airline+"</td><td>"+data[i].fdestination+"</td></tr>";
+                        }
+                    }
+					txt += '</table>';
+                    if(txt != ""){
+                        $("#table").append(txt).removeClass("hidden");
+						$('#show').html(txt);
+                    }
+                }  
+				
+			}
+	
+	
+	});
+ });
+ 
+ 
+ </script>

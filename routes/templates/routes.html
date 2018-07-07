@@ -1,0 +1,118 @@
+{% extends 'base5.html' %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-sm-3">
+<div id="right-panel">
+					<div>
+					<b>Start:</b>
+					<select id="start">
+					  <option value="Indore, MP">Indore, MP</option>
+					  <option value="Mumbai, MH">Mumbai, MH</option>
+					  <option value="Jaipur, RJ">Jaipur, RJ</option>
+					  <option value="Delhi, DL">Delhi, DL</option>
+					  <option value="Morena, MP">Morena, MP</option>
+					  <option value="Nashik, MH">Nashik, MH</option>
+					  <option value="Ajmer, RJ">Ajmer, RJ</option>
+					  <option value="Ujjain, MP">Ujjain, MP</option>
+					</select>
+					<br>
+					<b>Waypoints:</b> <br>
+					<i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
+					<select multiple id="waypoints">
+					<option value="Indore, MP">Indore, MP</option>
+					  <option value="Mumbai, MH">Mumbai, MH</option>
+					  <option value="Jaipur, RJ">Jaipur, RJ</option>
+					  <option value="Delhi, DL">Delhi, DL</option>
+					  <option value="Morena, MP">Morena, MP</option>
+					  <option value="Nashik, MH">Nashik, MH</option>
+					  <option value="Ajmer, RJ">Ajmer, RJ</option>
+					  <option value="Ujjain, MP">Ujjain, MP</option>
+					</select>
+					<br>
+					<b>End:</b>
+					<select id="end">
+					<option value="Indore, MP">Indore, MP</option>
+					  <option value="Mumbai, MH">Mumbai, MH</option>
+					  <option value="Jaipur, RJ">Jaipur, RJ</option>
+					  <option value="Delhi, DL">Delhi, DL</option>
+					  <option value="Morena, MP">Morena, MP</option>
+					  <option value="Nashik, MH">Nashik, MH</option>
+					  <option value="Ajmer, RJ">Ajmer, RJ</option>
+					  <option value="Ujjain, MP">Ujjain, MP</option>
+					</select>
+					<br>
+					  <input type="submit" id="submit">
+					</div>
+					<div id="directions-panel"></div>
+					</div>
+					
+					</div>
+					<div class="col-sm-9" style="overflow:hidden;">
+				 <div id="map" style="height:550px; ></div>
+</div>
+</div>
+
+					
+		</div>			
+		
+    <script>
+      function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 6,
+          center: {lat: 20.5937, lng: 78.9629}
+        });
+        directionsDisplay.setMap(map);
+
+        document.getElementById('submit').addEventListener('click', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+        });
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var waypts = [];
+        var checkboxArray = document.getElementById('waypoints');
+        for (var i = 0; i < checkboxArray.length; i++) {
+          if (checkboxArray.options[i].selected) {
+            waypts.push({
+              location: checkboxArray[i].value,
+              stopover: true
+            });
+          }
+        }
+
+        directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            var route = response.routes[0];
+            var summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';
+            // For each route, display summary information.
+            for (var i = 0; i < route.legs.length; i++) {
+              var routeSegment = i + 1;
+              summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                  '</b><br>';
+              summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+              summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+            }
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAF1M_y5ABZdZRWKTkhMjMJuq5Ysz6swm8&callback=initMap">
+    </script>
+	
+	{% endblock %}

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %} TRAVISTA {% endblock %}</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  {% load static %}  
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+  <meta property="og:title" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+  
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  
+  <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+  <link rel="icon" href="{% static 'flight/img/favicon.png' %}" type="image/gif" sizes="16x16">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet"> 
+  
+  <!-- Bootstrap CSS File -->
+  <link href="{% static 'flight/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  
+  <!-- Libraries CSS Files -->
+  <link href="{% static 'flight/lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{% static 'flight/lib/animate-css/animate.min.css' %}" rel="stylesheet">
+  
+  <!-- Main Stylesheet File -->
+  <link href="{% static 'flight/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'flight/css/welcome.css' %}" rel="stylesheet">
+
+    <!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'flight/css/animate.css' %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'flight/css/icomoon.css' %}">
+	<!-- Superfish -->
+	<link rel="stylesheet" href="{% static 'flight/css/superfish.css' %}">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static 'flight/css/magnific-popup.css' %}">
+	<!-- Date Picker -->
+	<link rel="stylesheet" href="{% static 'flight/css/bootstrap-datepicker.min.css' %}">
+	<!-- CS Select -->
+	<link rel="stylesheet" href="{% static 'flight/css/cs-select.css' %}">
+	<link rel="stylesheet" href="{% static 'flight/css/cs-skin-border.css' %}">
+	
+  <link href="{% static 'flight/css/flight.css' %}" rel="stylesheet">
+  <link href="{% static 'flight/css/flightdetail.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'flight/css/datepicker.css' %}">
+
+  
+  <!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js' "></script>
+  
+  
+</head>
+
+<body>
+
+ <!--div id="preloader"></div---->
+  
+<div class="container-fluid banner" id="ban">
+    <div class="row">
+	<div class="col-md-4 wc">
+	Welcome {{ user.username }}, 
+	</div>
+	<div class="col-md-4">
+	</div>
+	<div class="col-md-4">
+	{% if user.is_authenticated %}
+		<a href="{% url 'logout' %}" class="ls">Logout</a>
+		<a href="{% url 'view_profile' %}" class="ls login">My Account</a> 
+	{% else %}
+		<a class="ls login" href="{% url 'login' %}">Login</a><a class="ls login" href="{% url 'signup' %}">Signup</a>
+    {% endif %} 
+	</div>
+	</div>
+	</div>
+  
+
+<!--==========================
+  Header Section
+============================-->
+  <header id="header">
+    <div class="container">
+    
+      <div id="logo" class="pull-left">
+        <a href="#hero"><img src="{% static 'flight/img/logo.png' %}" alt="" title="" /></img></a>
+      </div>
+        
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'home' %}">About Us</a></li>
+          <li><a href="{% url 'travel' %}">Create Itinerary</a></li>
+          <li><a href="{% url 'flight' %}">View Flight</a></li>
+		  <li><a href="{% url 'routes' %}">View Routes</a></li>
+		  <li><a href="https://brands.datahc.com/?a_aid=175506&brandid=521294&languageCode=EN">Best Hotels</a></li>
+          <li class="menu-has-children"><a href="">Explore</a>
+            <ul>
+              <li><a href="{% url 'cafe' %}">Cafe</a></li>
+			  <li><a href="{% url 'restaurant' %}">Restaurant</a></li>
+              <li><a href="{% url 'school' %}">School</a></li>
+              <li><a href="{% url 'hospital' %}">Medical</a></li>
+              <li><a href="{% url 'shopping_mall' %}">Shopping Mall</a></li>
+			  <li><a href="{% url 'Movie_theater' %}">Movie Theatre</a></li>
+			 
+            </ul>
+          </li>
+		  <li><a href="{% url 'viewfeeds' %}">Live Feeds</a></li>
+          <li><a href="{% url 'home' %}">Contact Us</a></li>
+		  		  
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+ <!--==========================
+  Main Content
+============================-->  
+   <main>
+      {% block content %}
+      {% endblock %}
+    </main>
+  
+   
+<!--==========================
+  Footer
+============================--> 
+<footer class="footer1">
+<div class="container">
+
+<div class="row"><!-- row -->
+            
+                <div class="col-lg-3 col-md-3"><!-- widgets column left -->
+                <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                        	<li class="widget-container widget_nav_menu"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Useful links</h1>
+                                
+                                <ul>
+                                	<li><a  href="#"><i class="fa fa-angle-double-right"></i> About Us</a></li>
+                                    <li><a  href="#"><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+                                    <li><a  href="#"><i class="fa fa-angle-double-right"></i> Success Stories</a></li>
+                                    <li><a  href="#"><i class="fa fa-angle-double-right"></i> PG Courses</a></li>
+                                    <li><a  href="#"><i class="fa fa-angle-double-right"></i> Achiever's Batch</a></li>
+                                    
+                                </ul>
+                    
+							</li>
+                            
+                        </ul>
+                         
+                      
+                </div><!-- widgets column left end -->
+                
+                
+                
+                <div class="col-lg-3 col-md-3"><!-- widgets column left -->
+            
+                <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                        	<li class="widget-container widget_nav_menu"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Useful links</h1>
+                                
+                                <ul>
+ 									<li><a  href="#"><i class="fa fa-angle-double-right"></i>  Test Series Schedule</a></li>
+                                    <li><a  href="#"><i class="fa fa-angle-double-right"></i>  Postal Coaching</a></li>
+                                    <li><a  href="#"><i class="fa fa-angle-double-right"></i>  PG Dr. Bhatia Books</a></li>
+                                    <li><a  href="#"><i class="fa fa-angle-double-right"></i>  UG Courses</a></li>
+                                    
+                                    <li><a  href="#" target="_blank"><i class="fa fa-angle-double-right"></i> Results</a></li>
+                                    
+                                </ul>
+                    
+							</li>
+                            
+                        </ul>
+                         
+                      
+                </div><!-- widgets column left end -->
+                
+                
+                
+                <div class="col-lg-3 col-md-3"><!-- widgets column left -->
+            
+                <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                        	<li class="widget-container widget_nav_menu"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Useful links</h1>
+                                
+                                <ul>
+
+
+                <li><a href="#"><i class="fa fa-angle-double-right"></i> Enquiry Form</a></li>
+ 				<li><a href="#"><i class="fa fa-angle-double-right"></i> Online Test Series</a></li>
+				<li><a href="#"><i class="fa fa-angle-double-right"></i> Grand Tests Series</a></li>
+				<li><a href="#"><i class="fa fa-angle-double-right"></i> Subject Wise Test Series</a></li>
+				<li><a href="#"><i class="fa fa-angle-double-right"></i> Smart Book</a></li>
+
+                                </ul>
+                    
+							</li>
+                            
+                        </ul>
+                         
+                      
+                </div><!-- widgets column left end -->
+                
+                
+                <div class="col-lg-3 col-md-3"><!-- widgets column center -->
+                
+                   
+                    
+                        <ul class="list-unstyled clear-margins"><!-- widgets -->
+                        
+                        	<li class="widget-container widget_recent_news"><!-- widgets list -->
+                    
+                                <h1 class="title-widget">Contact Detail </h1>
+                                
+                                <div class="footerp"> 
+                                
+                                <h2 class="title-median">TRAVISTA</h2>
+                                <p><b>Email id:</b> <a href="#">info@travista.com</a></p>
+                                
+    <p><b>Phone Numbers : </b>7042827160, </p>
+    <p> 011-27568832, 9868387223</p>
+                                </div>
+                                
+                                <div class="social-icons">
+                                
+                                	<ul class="nomargin">
+                                    
+                <a href="#"><i class="fa fa-facebook-square fa-3x social-fb" id="social"></i></a>
+	            <a href="#"><i class="fa fa-twitter-square fa-3x social-tw" id="social"></i></a>
+	            <a href="#"><i class="fa fa-google-plus-square fa-3x social-gp" id="social"></i></a>
+	            <a href="#"><i class="fa fa-envelope-square fa-3x social-em" id="social"></i></a>
+                                    
+                                    </ul>
+                                </div>
+                    		</li>
+                          </ul>
+                       </div>
+                </div>
+</div>
+</footer>
+<!--header-->
+
+<div class="footer-bottom">
+
+	<div class="container">
+
+		<div class="row">
+
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+				<div class="copyright">
+
+					© 2017, TRAVISTA, All rights reserved
+
+				</div>
+
+			</div>
+
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+				<div class="design">
+
+					 <a href="#">Franchisee </a> |  <a target="_blank" href="#">Web Design & Development by Travista</a>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div><!-- #footer -->
+  
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    
+  
+    <!-- Required JavaScript Libraries -->
+  <script src="{% static 'flight/lib/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'flight/lib/jquery/jquery-migrate.min.js' %}"></script>
+  <script src="{% static 'flight/lib/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'flight/lib/superfish/hoverIntent.js' %}"></script>
+  <script src="{% static 'flight/lib/superfish/superfish.min.js' %}"></script>
+  <script src="{% static 'flight/lib/morphext/morphext.min.js' %}"></script>
+  <script src="{% static 'flight/lib/wow/wow.min.js' %}"></script>
+  <script src="{% static 'flight/lib/stickyjs/sticky.js' %}"></script>
+  <script src="{% static 'flight/lib/easing/easing.js' %}"></script>
+  
+  <!-- Template Specisifc Custom Javascript File -->
+  <script src="{% static 'flight/js/custom.js' %}"></script>
+  <script src="{% static 'flight/js/login.js' %}"></script>
+
+  <script src="{% static 'flight/js/bootstrap-datepicker.js' %}"></script>
+  
+ 
+
+
+  
+    
+</body> 
+  
+  </html>

@@ -1,0 +1,49 @@
+{% extends 'base5.html' %}
+{% block content %}
+ <div class="container space">
+
+<div class="row">
+<h3>Live Feeds | <a type="button" href="{% url 'createfeeds' %}">Post your Feed</a> </h3> 
+{% for obj in object_list %}
+	
+  <div class="col-sm-6">
+    <div class="thumbnail">
+	
+	{% if obj.image %}
+      <img src="{{obj.image.url}}" alt="" class="image-responsive">
+	{% endif %}  
+      <div class="caption">
+        <h3>{{obj.place_name}}<small>{{obj.timestamp | timesince}}</small></h3>
+		<p>Author : {{obj.user.get_full_name}}</p>
+        <p>{{obj.content| linebreaks}}</p>
+      </div>
+    </div>
+  </div>
+
+{% cycle "" "<div class='col-sm-12'><hr></div></div><div class='row'>" %}
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page={{ object_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+
+
+
+</div>
+
+{% endblock %}
+ 

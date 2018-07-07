@@ -1,0 +1,21 @@
+.banner{
+	color:white;
+	background-color:#595959;
+	
+}
+#ban .ls,.wc{
+	color: white;
+	font-size:14px;
+	padding:10px;
+	font-family: 'Bree Serif', serif;
+}
+
+#ban .ls:hover {
+	text-decoration:underline;
+}
+#ban .ls{
+	float:right;
+}
+.wc{
+	padding-left:120px;
+}
